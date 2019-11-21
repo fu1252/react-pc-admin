@@ -1,0 +1,42 @@
+.mainLayout {
+  height: 100vh;
+  width: 100vw;
+}
+.mainSideBar {
+  :global {
+    .logo {
+      height: 32px;
+      background: #333;
+      border-radius: 6px;
+      margin: 16px;
+    }
+  }
+}
+.mainHeader {
+  background-color: #fff;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  :global {
+    .trigger {
+      font-size: 18px;
+      line-height: 64px;
+      padding: 0 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .trigger:hover {
+      color: #108ee9;
+    }
+    .right{
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+.mainContent {
+  margin: 24px 16px;
+  padding: 24;
+  background-color: #fff;
+  min-height: 280;
+}

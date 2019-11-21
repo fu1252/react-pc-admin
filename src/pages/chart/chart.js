@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,lazy } from "react";
 import { useHistory } from "react-router-dom";
 import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, G2, Guide, Util, Facet, Shape, View } from "bizcharts";
 import http from "@/http/http";
 import DataSet from "@antv/data-set";
-import MapChart from './locationChart'
 import style from "./chart.less";
+
+const  MapChart=lazy(()=>import('./locationChart'))
 
 function ChartDemo() {
   let history = useHistory();

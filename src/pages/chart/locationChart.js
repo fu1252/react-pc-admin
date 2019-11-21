@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, G2, Guide, Util, Facet, Shape, View } from "bizcharts";
+import React, { lazy } from "react";
+import { Chart, Label,Geom,  View } from "bizcharts";
 import DataSet from "@antv/data-set";
 import china from '@/assets/china.json'
-
 import style from "./chart.less";
+
 
 function MapChart() {
 

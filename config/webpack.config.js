@@ -277,20 +277,6 @@ module.exports = function(webpackEnv) {
       splitChunks: {
         chunks: 'all',
         name: false,
-        maxAsyncRequests: 10,
-        maxInitialRequests: 10,
-        cacheGroups: {
-          react_dom: {
-            test: /[\\/]node_modules[\\/](react-dom)[\\/]/,
-            name: 'react_dom',
-            chunks: 'all'
-          },
-          react: {
-            test: /[\\/]node_modules[\\/](react)[\\/]/,
-            name: 'react',
-            chunks: 'all'
-          },
-        }
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
