@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React from "react";
 import { Chart, Label,Geom,  View } from "bizcharts";
 import DataSet from "@antv/data-set";
 import china from '@/assets/china.json'

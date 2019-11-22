@@ -1,6 +1,6 @@
 import React, { useEffect, useState,lazy } from "react";
 import { useHistory } from "react-router-dom";
-import { Chart, Geom, Axis, Tooltip, Legend, Coord, Label, G2, Guide, Util, Facet, Shape, View } from "bizcharts";
+import { Chart, Geom, Axis, Tooltip, Legend } from "bizcharts";
 import http from "@/http/http";
 import DataSet from "@antv/data-set";
 import style from "./chart.less";
@@ -10,47 +10,7 @@ const  MapChart=lazy(()=>import('./locationChart'))
 function ChartDemo() {
   let history = useHistory();
 
-  const data2 = [
-    {
-      name:'a',
-      value:1,
-      average_price: 2,
-      device_average_sale: 0,
-      moment: "2019-11-01",
-      order_finish_count: 1,
-      total_alipay_money: 0,
-      total_card_money: 0,
-      total_cash_money: 1,
-      total_money: 2,
-      total_offline_pay_money: 0,
-      total_online_pay_money: 1,
-      total_weixin_pay_money: 1,
-    },
-    {
-      average_price: 0,
-      device_average_sale: 0,
-      moment: "2019-11-02",
-      order_finish_count: 14,
-      total_alipay_money: 0,
-      total_card_money: 0,
-      total_cash_money: 0,
-      total_money: 1,
-      total_offline_pay_money: 0,
-      total_online_pay_money: 1,
-      total_weixin_pay_money: 1
-    },
-    {average_price: 1,
-      device_average_sale: 0,
-      moment: "2019-11-14",
-      order_finish_count: 5,
-      total_alipay_money: 0,
-      total_card_money: 0,
-      total_cash_money: 0,
-      total_money: 5,
-      total_offline_pay_money: 0,
-      total_online_pay_money: 5,
-      total_weixin_pay_money: 5}
-  ];
+ 
   const [chartData, setChartData] = useState([]);
   useEffect(() => {
     async function getData() {
