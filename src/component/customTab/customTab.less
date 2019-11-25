@@ -1,0 +1,36 @@
+@import "~@/style/base.less";
+
+.customTabWrapper {
+  display: flex;
+  flex-direction: column;
+  :global {
+    .custom-tab {
+      display: flex;
+      position: relative;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #d9d9d9;
+    }
+    .tabItem.active{
+      color:#1890ff
+    }
+    .tabItem {
+      width: 100px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+    }
+    .line {
+      height: 2px;
+      width: 100px;
+      position: absolute;
+      transition: left 0.4s ease;
+      bottom: 0;
+      transform: translateY(1px);
+      background-color: #1890ff;
+    }
+    .tab-content{
+      margin-top: 10px;
+    }
+  }
+}

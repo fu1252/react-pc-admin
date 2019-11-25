@@ -1,12 +1,16 @@
 import React from "react";
 import { Icon, Dropdown, Menu } from "antd";
-import { Link,useHistory } from "react-router-dom";
-import { getSessionStorage } from "@/utils/storage";
+import { useHistory } from "react-router-dom";
+import style from "./home.less";
+import {useStoreState,useStoreActions} from 'easy-peasy'
 
-function TopHeader({ collapsed, setCollapsed }) {
+function TopHeader() {
   const history=useHistory()
-  const data = getSessionStorage("userInfo");
-  const { nickname, name }=data?data:{nickname:null,name:null}
+  const userInfo=useStoreState(state=>state.user.userInfo)
+  const toggleSidebar=useStoreActions(actions=>actions.layout.toggleSidebar)
+  const isOpenSidebar=useStoreState(state=>state.layout.isOpenSidebar)
+  
+  // 下拉框内容
   const menu = (
     <Menu className='overEle'>
       <Menu.Item>
@@ -36,6 +40,7 @@ function TopHeader({ collapsed, setCollapsed }) {
     </Menu>
   );
 
+  // 退出登录
   function onLoginOut(){
     localStorage.removeItem('userData')
     sessionStorage.removeItem('userInfo')
@@ -43,15 +48,16 @@ function TopHeader({ collapsed, setCollapsed }) {
   }
 
   return (
-    <>
+    <div className={style.mainHeader}>
+      {/* 收缩展开icon */}
       <div className="left">
-        {" "}
         <Icon
           className="trigger"
-          type={collapsed ? "menu-unfold" : "menu-fold"}
-          onClick={() => setCollapsed(!collapsed)}
+          type={isOpenSidebar ? "menu-unfold" : "menu-fold"}
+          onClick={() => toggleSidebar(!isOpenSidebar)}
         />
       </div>
+
       <ul className="right">
         <li>
           <Icon type="link" />
@@ -62,7 +68,7 @@ function TopHeader({ collapsed, setCollapsed }) {
           <Icon type="user" />
           <Dropdown overlay={menu} >
             <div>
-            {`${name}(${nickname})`}<Icon type="down" />
+            {`${userInfo.name}(${userInfo.nickname})`}<Icon type="down" />
             </div>
           </Dropdown>
         </li>
@@ -71,7 +77,8 @@ function TopHeader({ collapsed, setCollapsed }) {
           English
         </li>
       </ul>
-    </>
+      
+    </div>
   );
 }
 

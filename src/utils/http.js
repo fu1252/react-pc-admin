@@ -1,7 +1,7 @@
 import axios from "axios";
 import { message } from "antd";
 import allApi from "../config.js";
-import {getLocalStorage} from '@/utils/storage'
+import {getLocalStorage} from './storage'
 
 const service = axios.create({
   baseURL: allApi.api,

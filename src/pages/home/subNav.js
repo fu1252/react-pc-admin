@@ -1,108 +1,132 @@
-import React from "react";
-import { Menu, Icon } from "antd";
-import { useHistory } from "react-router-dom";
-const SubMenu = Menu.SubMenu;
+import React, { useState } from "react";
+import style from "./home.less";
+import classnames from "classnames";
+import ReactSVG from "react-svg";
+import {Icon} from 'antd'
+import {useStoreState} from 'easy-peasy'
+import { useHistory, useLocation } from "react-router-dom";
 
 function SubNav() {
   let history = useHistory();
-
-  const menuList = [
-    { path: "operator", icon: "user", text: "设备管理" },
-    { path: "shop", icon: "upload", text: "商品管理" },
-    { path: "order", icon: "video-camera", text: "订单管理" },
-    { path: "mall", icon: "appstore", text: "商城管理" },
+  const location = useLocation();
+  const isOpenSidebar=useStoreState(state=>state.layout.isOpenSidebar)
+  const [currentClickNav, setCurrentClickNav] = useState({});
+  const baseNavList = [
+    { text: "图表展示", roles: ["user", "admin"], icon: "saleTab", path: "/chart" },
+    { text: "设备管理", roles: ["user", "admin"], icon: "machine", path: "/operator" },
+    { text: "订单管理", roles: ["admin"], icon: "order", path: "/device" },
+      {
+        text: "商品管理",
+        roles: ["user", "admin"],
+        icon: "shop",
+        key: "shop",
+        children: [
+          { text: "地方", roles: ["user", "admin"], icon: "order", path: "/abc" },
+          { text: "哈佛", roles: ["admin"], icon: "account", path: "/bbc" }
+        ]
+      },
+    { text: "账目管理", roles: ["admin"], icon: "account", path: "/account" },
     {
-      path: "sell",
-      icon: "mail",
-      text: "营销管理",
+      text: "会员管理",
+      roles: ["user", "admin"],
+      icon: "member",
+      key: "member",
       children: [
-        { path: "gift",icon: "user", text: "礼品管理" },
-        { path: "data",icon: "user", text: "终端数据管理" },
-        { path: "partner",icon: "user", text: "会员促销" },
-        { path: "online",icon: "user", text: "线上抽奖活动" }
-      ]
-    },
-    {
-      path: "test",
-      icon: "user",
-      text: "测试",
-      children: [
-        { path: "test1", icon: "user", text: "测试1" },
+        { text: "礼物", roles: ["admin"], icon: "order", path: "/gift" },
         {
-          path: "test2",
-          icon: "user",
-          text: "测试2",
+          text: "打折",
+          roles: ["user", "admin"],
+          icon: "account",
+          key: "subAccount",
           children: [
-            { path: "test3", icon: "user", text: "测试3" },
-            { path: "test4", icon: "user", text: "测试4" }
+            { text: "家里的", roles: ["user", "admin"], icon: "order", path: "/tttt" },
+            {
+              text: "电风扇",
+              roles: ["admin"],
+              icon: "account",
+              path: "/ggg",
+              key: "subsub",
+              children: [{ text: "大幅度", roles: ["admin"], icon: "order", path: "/445" }]
+            }
           ]
         }
       ]
     }
   ];
 
-  function createEle() {
-    return menuList.map(item => {
-      if (!item.children) {
-        return (
-          <Menu.Item key={item.path}>
-            <Icon type={item.icon} />
-            <span>{item.text}</span>
-          </Menu.Item>
-        );
-      }else{
-        return (
-          <SubMenu
-            key={item.path}
-            title={
-              <span>
-                <Icon type={item.icon} />
-                <span>{item.text}</span>
-              </span>
-            }
-          >
-              {item.children.map(subitem => createSubEle(subitem))}
-           
-          </SubMenu>
-        );
+  // 过滤有权限的路由
+  const role = "admin";
+  const cloneData = JSON.parse(JSON.stringify(baseNavList));
+  function filterData(data) {
+    for (let index = 0; index < data.length; index++) {
+      const ele = data[index];
+      if (!ele.roles.includes(role)) {
+        data.splice(index, 1);
+        index--;
+      } else if (ele.children) {
+        filterData(ele.children);
       }
-    });
+    }
   }
+  filterData(cloneData);
+  const navList = cloneData;
 
-  function createSubEle(subitem){
-    if(subitem.children){
-      return  <SubMenu
-      key={subitem.path}
-      title={
-        <span>
-          <Icon type={subitem.icon} />
-          <span>{subitem.text}</span>
-        </span>
-      }
-    >
-        {subitem.children.map(subitem2 =><Menu.Item key={subitem2.path}>
-      <Icon type={subitem2.icon} />
-      <span>{subitem2.text}</span>
-    </Menu.Item>)}
-    </SubMenu>
-    }else{
-      return <Menu.Item key={subitem.path}>
-      <Icon type={subitem.icon} />
-      <span>{subitem.text}</span>
-    </Menu.Item>
+  // 目录点击后
+  function onListClick(item) {
+    if (item.children) {
+      setCurrentClickNav({ ...currentClickNav, [item.key]: !currentClickNav[item.key] });
+    } else {
+      history.push(item.path);
     }
   }
 
+  function listEle(data) {
+    return data.map(item => (
+      <div key={item.text}>
+        {/* 各菜单项 */}
+        <li onClick={() => onListClick(item)}>
+          <div className={classnames({ listItem: true, navActive: location.pathname.startsWith(item.path )})}>
+            <ReactSVG className="inlineSVG" src={require(`@/assets/${item.icon}.svg`)} />
+            {isOpenSidebar&&<span className="text">{item.text}</span>}
+            {/* 折叠菜单icon */}
+            {item.children &&isOpenSidebar&& (
+              <ReactSVG
+                className={classnames({ inlineSVG: true, "icon-open": currentClickNav[item.key] })}
+                src={require("@/assets/right.svg")}
+              />
+            )}
+          </div>
+        </li>
+        {/* 递归嵌套菜单 */}
+        {item.children && (
+          <div
+            className={classnames({
+              "subList-hidden": !currentClickNav[item.key]
+            })}
+          >
+            {listEle(item.children)}
+          </div>
+        )}
+      </div>
+    ));
+  }
 
   return (
-    <Menu theme="dark" mode="inline" onSelect={({ key }) => history.push(`/${key}`)}>
-      <Menu.Item key="home">
-        <Icon type="github" />
-        <span className="logo-text">赛耀管理系统</span>
-      </Menu.Item>
-      {createEle()}
-    </Menu>
+    <div className={classnames({[style.sidebarList]:true,[style.closeSidebar]:!isOpenSidebar})}>
+      {/* 头部logo */}
+      <div className="header-logo" onClick={() => history.push("/home")}>
+        <Icon  type='github'/>
+        {isOpenSidebar&&<span className="text">管理系统</span>}
+      </div>
+      {/* menu项 */}
+      <ul className='listWrap'>
+      {listEle(navList)}
+      </ul>
+
+    </div>
   );
 }
 
 export default SubNav;
+
+

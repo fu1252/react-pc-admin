@@ -7,13 +7,8 @@ import style from "./chart.less";
 
 function MapChart() {
 
-  
-  console.log(111,china);
-
   const ds = new DataSet();
   const geoDv = ds.createView().source(china,{type:'GeoJSON'});
- 
-console.log('geoDv',geoDv);
 
 const scale = {
   latitude: {
@@ -26,7 +21,7 @@ const scale = {
   },
 };
 
-const ponitData=[
+const pointData=[
   {longitude:113,latitude:28.21,name:'长沙'},
   {longitude:114.1000,latitude:22.2,name:'重庆'},
   {longitude:118.1000,latitude:24.4666,name:'厦门'},
@@ -39,7 +34,6 @@ const ponitData=[
        <h1> 位置发布图</h1>
     
        <Chart renderer='svg' height={window.innerHeight} scale={scale} forceFit padding={0}>
-        {/* // geo view */}
         <View data={geoDv}>
           <Geom type="polygon" position="longitude*latitude" color="transparent" style={{
               fill: '#DDDDDD',
@@ -48,7 +42,7 @@ const ponitData=[
               fillOpacity: 0.85,
             }} opacity={0.4} />
         </View>
-        <View data={ponitData}>
+        <View data={pointData}>
           <Geom
             type="point"
             position="longitude*latitude"

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useHistory, Switch, Route, useLocation } from "react-router-dom";
 import useForm from "react-hook-form";
-import http from "../../http/http";
+import http from "@/utils/http";
 import { getLocalStorage, setLocalStorage } from "@/utils/storage";
 import style from "./login.less";
 
-function Login() {
+function LoginWrap() {
+
+  const  history = useHistory();
+  const  location = useLocation();
+  const  { from } = location.state || { from: { pathname: "/" } };
   const account = getLocalStorage("account");
   const [showPWD, setShowPWD] = useState(false);
-  let history = useHistory();
-  let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/" } };
 
+  // 初始表单内容
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       name: account ? account.name : null,
@@ -19,6 +21,7 @@ function Login() {
     }
   });
 
+  // 提交登录
   async function onSubmit(data, e) {
     delete data.isPartner;
     const res = await http({ url: "operators/login", data: data, method: "post", headers: { noNeedToken: true } });
@@ -92,4 +95,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginWrap;

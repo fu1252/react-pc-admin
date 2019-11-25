@@ -1,24 +1,27 @@
+
 import React, { useEffect, useState } from "react";
-import http from "@/http/http";
+import http from "@/utils/http";
 import { getLocalStorage, getSessionStorage, setSessionStorage } from "@/utils/storage";
-import { Layout } from "antd";
 import Route from "./route";
 import TopHeader from "./topHeader";
+import { useStoreActions } from "easy-peasy";
 import SubNav from "./subNav";
 import style from "./home.less";
-const { Header, Content, Sider } = Layout;
 
 function Home() {
-  const [collapsed, setCollapsed] = useState(false);
+  const setUserInfo = useStoreActions(actions => actions.user.setUserInfo);
 
+  // 获取用户基本信息，刷新情况下不请求
   useEffect(() => {
     async function getData() {
       const objectId = getLocalStorage("userData").object_id;
       const userInfoData = getSessionStorage("userInfo");
       if (userInfoData) {
+        setUserInfo(userInfoData);
         return;
       } else {
         const res = await http.get(`operators/${objectId}`);
+        setUserInfo(res);
         setSessionStorage("userInfo", res);
       }
     }
@@ -26,23 +29,15 @@ function Home() {
   }, []);
 
   return (
-    <Layout className={style.mainLayout}>
-      {/* 侧边栏 */}
-      <Sider className={style.mainSideBar} trigger={null} collapsible collapsed={collapsed}>
-        <SubNav />
-      </Sider>
-      {/* 主体 */}
-      <Layout>
-        {/* 头部信息栏 */}
-        <Header className={style.mainHeader}>
-          <TopHeader collapsed={collapsed} setCollapsed={setCollapsed} />
-        </Header>
-        {/* 路由页面 */}
-        <Content className={style.mainContent}>
+    <div className={style.mainLayout}>
+      <SubNav />
+      <div className={style.contentLayout}>
+        <TopHeader />
+        <div className={style.mainContent}>
           <Route />
-        </Content>
-      </Layout>
-    </Layout>
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -14,13 +14,15 @@ function RouteConfig(){
 
   return(
     <Switch>
+        
         <Redirect exact from="/" to="/home" />
         <Redirect exact from="/home" to="/operator" />      
         <Redirect exact from="/operator" to="/operator/device" />      
+        <Redirect exact from="/device" to="/device/a" />    
+
         <Route path="/operator">
           <Operator />
         </Route>
-        <Redirect exact from="/device" to="/device/a" />      
         <Route path="/device">
           <Device />
         </Route>
@@ -33,6 +35,7 @@ function RouteConfig(){
         <Route>
           <NotFound />
         </Route>
+        
       </Switch>
   )
 }

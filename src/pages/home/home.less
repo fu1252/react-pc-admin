@@ -1,36 +1,93 @@
 @import '~@/style/base.less';
 
+// 页面总布局
 .mainLayout {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  background-color: #f0f2f5;
 }
-.mainSideBar {
-  :global {
-    .ant-menu {
-      .ant-menu-item{
-        margin: 15px 0;
-        &:first-child{
-          margin: 20px 0;
-          svg{
-            fill:#eee
-          }
-        }
-      }
-      .logo-text{
-        font-weight: 660;
-        font-size: 20px;
-        color:#eee;
-      }
-      span{
-      font-size: 16px;
-      }
-      i{
-        font-size: 18px;
+.contentLayout{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+// 侧边栏
+.sidebarList.closeSidebar{
+  width: 80px;
+}
+.sidebarList{
+  height: 100vh;
+  width: 200px;
+  flex-shrink: 0;
+  background-color: #000;
+  color:#fff;
+  overflow: hidden;
+  :global{
+    .listWrap{
+      background-color: #313541;
+    }
+    .icon-open{
+      transform: rotate(90deg);
+      transition: all .3s linear;
+    }
+    .inlineSVG{
+      transition: all .3s linear;
+
+    }
+    .subList-hidden{
+      display: none;
+    }
+    .injected-svg{
+        width: 16px;
+        height: 16px;
+        display:flex;
+        align-items: center;
+    }
+    .navActive.listItem{
+        color:#fff;
+        background-color:@blue;
+      .injected-svg path{
+          fill:#fff;
       }
     }
-    
+    .listItem{
+      padding: 15px 0 15px 30px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      color:@gray-text;
+      .text{
+        margin:0 10px;
+      }
+      .injected-svg path{
+        fill:@gray-text;
+    }
+      &:hover{
+          color:#fff;
+        .injected-svg path{
+            fill:#fff;
+        }
+      }
+    }
+    .header-logo{
+      margin: 20px 0 20px 30px;
+      display: flex;
+      align-items: center;
+      i{
+       font-size: 20px;
+      }
+      .text{
+        font-size: 20px;
+        font-weight: 550;
+        margin-left: 8px;
+      }
+    }
   }
 }
+
+// 头部信息栏
 .mainHeader {
   background-color: #fff;
   padding: 0;
@@ -54,7 +111,7 @@
       align-items: center;
       padding-right: 30px;
       li{
-        border-right: 1px solid @gray-text;
+        border-right: 1px solid @gray-border;
         padding: 0 30px;
         height: 40px;
         display: flex;
@@ -71,17 +128,24 @@
     }
   }
 }
+
+// 主体内容页面
 .mainContent {
-  margin: 24px 16px;
+  margin: 20px;
   padding: 24px;
-  overflow-y: scroll;
   background-color: #fff;
-  min-height: 280;
+  overflow-y: auto;
+  height: 100%;
 }
+
+// 全局覆盖样式
 :global{
   .overEle{
     .ant-dropdown-menu-item{
       padding:10px 12px;
+    }
+    svg{
+      margin-right: 8px;
     }
   }
 }

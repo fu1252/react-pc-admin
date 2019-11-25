@@ -1,7 +1,7 @@
 import React, { useEffect, useState,lazy } from "react";
 import { useHistory } from "react-router-dom";
 import { Chart, Geom, Axis, Tooltip, Legend } from "bizcharts";
-import http from "@/http/http";
+import http from "@/utils/http";
 import DataSet from "@antv/data-set";
 import style from "./chart.less";
 
@@ -55,7 +55,6 @@ function ChartDemo() {
     }, // 坐标轴文本属性配置
     position:  'end'  // 标题的位置，**新增**
   }
-  console.log("TCL: ChartDemo -> dv", dv);
   const label={formatter(text, item, index) {
     return `￥${text/100}`;
   },}

@@ -2,6 +2,8 @@ import React from "react";
 import { Breadcrumb, Tabs } from "antd";
 import { Link, useLocation,Route,useRouteMatch,useHistory } from "react-router-dom";
 import style from "./device.less";
+import CustomTab from '@/component/customTab/customTab.js'
+
 const TabPane = Tabs.TabPane;
 
 function Device() {
@@ -36,9 +38,11 @@ function Device() {
     </Breadcrumb.Item>
   ].concat(extraBreadcrumbItems);
 
-  function callback(key) {
-    history.push(`${path}/${key}`)
-  }
+  const tabList=[
+    {text:'aaa',path:'/device/a'},
+    {text:'bbb',path:'/device/b'},
+    {text:'ccc',path:'/device/c'},
+  ]
 
   return (
     <div className={style.deviceWrapper}>
@@ -46,27 +50,23 @@ function Device() {
         <Breadcrumb>{breadcrumbItems}</Breadcrumb>
       </div>
       <div className={style.container}>
-        <Tabs defaultActiveKey="a" onChange={callback}>
-          <TabPane tab="aaa" key="a">
-          <Route exact path={`${path}/a`}>
+
+      <CustomTab list={tabList}>
+      <Route exact path={`${path}/a`}>
             <h1>aaaa</h1>
             <Link to='/device/a/a'>
             <button className='custom-btn'>去往aaa</button>
             </Link>
           </Route>
-          </TabPane>
-          <TabPane tab="bbb" key="b">
           <Route exact path={`${path}/b`}>
             <h1>bbbb</h1>
           </Route>
-          </TabPane>
-          <TabPane tab="cccc" key="c">
           <Route exact path={`${path}/c`}>
             <h1>cccc</h1>
             
           </Route>
-          </TabPane>
-        </Tabs>
+      </CustomTab>
+        
   
         
       </div>
