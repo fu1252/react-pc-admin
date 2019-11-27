@@ -1,8 +1,9 @@
-import React, { useEffect, useState,lazy } from "react";
+import React, { useEffect, useState,lazy,Suspense } from "react";
 import { useHistory } from "react-router-dom";
 import { Chart, Geom, Axis, Tooltip, Legend } from "bizcharts";
 import http from "@/utils/http";
 import DataSet from "@antv/data-set";
+import PointLoading from "@/component/loading/loading";
 import style from "./chart.less";
 
 const  MapChart=lazy(()=>import('./locationChart'))
@@ -62,9 +63,13 @@ function ChartDemo() {
     <div className={style.chartWrapper}>
       <div className={style.header}>
         <h2>我是chart组件</h2>
+        <Suspense  fallback={<PointLoading/>}>
+           <MapChart/>
+        </Suspense>
         <button className="custom-btn" onClick={() => history.push("/home")}>
           回主页
         </button>
+
       </div>
       <div className={style.content}>
         <Chart renderer='svg' height={600} width={800} data={dv} padding={120} scale={scale} >
@@ -95,7 +100,6 @@ function ChartDemo() {
             }}
           />
         </Chart>
-      <MapChart/>
       </div>
     </div>
   );

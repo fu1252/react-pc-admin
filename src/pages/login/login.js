@@ -6,7 +6,7 @@ import { getLocalStorage, setLocalStorage } from "@/utils/storage";
 import style from "./login.less";
 
 function LoginWrap() {
-
+console.log('login');
   const  history = useHistory();
   const  location = useLocation();
   const  { from } = location.state || { from: { pathname: "/" } };

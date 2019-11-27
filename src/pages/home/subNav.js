@@ -25,7 +25,7 @@ function SubNav() {
         { text: "哈佛", roles: ["admin"], icon: "account", path: "/bbc" }
       ]
     },
-    { text: "账目管理", roles: ["admin"], icon: "account", path: "/account" },
+    { text: "富文本编辑器", roles: ["admin"], icon: "account", path: "/editor" },
     {
       text: "会员管理",
       roles: ["user", "admin"],
@@ -115,7 +115,7 @@ function SubNav() {
         <li onClick={() => onListClick(item)}>
           <div className={classnames({ listItem: true, navActive: location.pathname.startsWith(item.path) })}>
             {/* 折叠显示图标 */}
-            {isOpenSidebar && <ReactSVG className="inlineSVG" src={require(`@/assets/${item.icon}.svg`)} />}
+            {isOpenSidebar &&item.icon&& <ReactSVG className="inlineSVG" src={require(`@/assets/${item.icon}.svg`)} />}
             {/* 折叠有子菜单显示pop */}
             {!isOpenSidebar && item.children && (
               <Popover content={popEle(item.children)}  placement="right" overlayClassName="navPop">
@@ -166,5 +166,4 @@ function SubNav() {
     </div>
   );
 }
-
 export default SubNav;

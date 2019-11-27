@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import http from "@/utils/http";
 import { getLocalStorage, getSessionStorage, setSessionStorage } from "@/utils/storage";
 import Route from "./route";
@@ -34,7 +33,7 @@ function Home() {
       <div className={style.contentLayout}>
         <TopHeader />
         <div className={style.mainContent}>
-          <Route />
+            <Route />
         </div>
       </div>
     </div>
