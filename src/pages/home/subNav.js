@@ -115,17 +115,17 @@ function SubNav() {
         <li onClick={() => onListClick(item)}>
           <div className={classnames({ listItem: true, navActive: location.pathname.startsWith(item.path) })}>
             {/* 折叠显示图标 */}
-            {isOpenSidebar &&item.icon&& <ReactSVG className="inlineSVG" src={require(`@/assets/${item.icon}.svg`)} />}
+            {isOpenSidebar &&item.icon&& <ReactSVG className="inlineSVG" src={require(`@/assets/svg/${item.icon}.svg`)} />}
             {/* 折叠有子菜单显示pop */}
             {!isOpenSidebar && item.children && (
               <Popover content={popEle(item.children)}  placement="right" overlayClassName="navPop">
-                <ReactSVG className="inlineSVG" src={require(`@/assets/${item.icon}.svg`)} />
+                <ReactSVG className="inlineSVG" src={require(`@/assets/svg/${item.icon}.svg`)} />
               </Popover>
             )}
             {/* 折叠没子菜单显示tip */}
             {!isOpenSidebar && !item.children && (
               <Tooltip title={item.text} placement="right" overlayClassName="navTooltip">
-                <ReactSVG className="inlineSVG" src={require(`@/assets/${item.icon}.svg`)} />
+                <ReactSVG className="inlineSVG" src={require(`@/assets/svg/${item.icon}.svg`)} />
               </Tooltip>
             )}
             {/* 非折叠显示文本 */}
@@ -134,7 +134,7 @@ function SubNav() {
             {item.children && isOpenSidebar && (
               <ReactSVG
                 className={classnames({ inlineSVG: true, "icon-open": currentClickNav[item.key] })}
-                src={require("@/assets/right.svg")}
+                src={require("@/assets/svg/right.svg")}
               />
             )}
           </div>

@@ -1,23 +1,20 @@
 import React from "react";
-import { Breadcrumb, Tabs } from "antd";
-import { Link, useLocation,Route,useRouteMatch,useHistory } from "react-router-dom";
+import { Breadcrumb } from "antd";
+import { Link, useLocation, Route, useRouteMatch } from "react-router-dom";
 import style from "./device.less";
-import CustomTab from '@/component/customTab/customTab.js'
-
-const TabPane = Tabs.TabPane;
+import CustomTab from "@/component/customTab/customTab.js";
 
 function Device() {
   const location = useLocation();
-  const history=useHistory()
-  const {path}=useRouteMatch()
+  const { path } = useRouteMatch();
   const { pathname } = location;
 
   const breadcrumbNameMap = {
-    '/device':'home',
+    "/device": "home",
     "/device/a": "aaa",
     "/device/a/a": "aaa33333",
     "/device/b": "bbb",
-    "/device/c": "ccc",
+    "/device/c": "ccc"
   };
   const pathSnippets = pathname.split("/").filter(i => i);
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
@@ -38,11 +35,11 @@ function Device() {
     </Breadcrumb.Item>
   ].concat(extraBreadcrumbItems);
 
-  const tabList=[
-    {text:'aaa',path:'/device/a'},
-    {text:'bbb',path:'/device/b'},
-    {text:'ccc',path:'/device/c'},
-  ]
+  const tabList = [
+    { text: "aaa", path: "/device/a" },
+    { text: "bbb", path: "/device/b" },
+    { text: "ccc", path: "/device/c" }
+  ];
 
   return (
     <div className={style.deviceWrapper}>
@@ -50,12 +47,11 @@ function Device() {
         <Breadcrumb>{breadcrumbItems}</Breadcrumb>
       </div>
       <div className={style.container}>
-
-      <CustomTab list={tabList}>
-      <Route exact path={`${path}/a`}>
+        <CustomTab list={tabList}>
+          <Route exact path={`${path}/a`}>
             <h1>aaaa</h1>
-            <Link to='/device/a/a'>
-            <button className='custom-btn'>去往aaa</button>
+            <Link to="/device/a/a">
+              <button className="custom-btn">去往aaa</button>
             </Link>
           </Route>
           <Route exact path={`${path}/b`}>
@@ -63,12 +59,8 @@ function Device() {
           </Route>
           <Route exact path={`${path}/c`}>
             <h1>cccc</h1>
-            
           </Route>
-      </CustomTab>
-        
-  
-        
+        </CustomTab>
       </div>
     </div>
   );

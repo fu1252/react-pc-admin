@@ -5,14 +5,13 @@ import http from "@/utils/http";
 import DataSet from "@antv/data-set";
 import PointLoading from "@/component/loading/loading";
 import style from "./chart.less";
-
 const  MapChart=lazy(()=>import('./locationChart'))
 
 function ChartDemo() {
-  let history = useHistory();
 
- 
+  let history = useHistory();
   const [chartData, setChartData] = useState([]);
+
   useEffect(() => {
     async function getData() {
       const data = await http.get("sales/?util=d&start=2019-11-01&end=2019-11-19");
@@ -59,18 +58,18 @@ function ChartDemo() {
   const label={formatter(text, item, index) {
     return `￥${text/100}`;
   },}
+
   return (
     <div className={style.chartWrapper}>
       <div className={style.header}>
         <h2>我是chart组件</h2>
-        <Suspense  fallback={<PointLoading/>}>
-           <MapChart/>
-        </Suspense>
         <button className="custom-btn" onClick={() => history.push("/home")}>
           回主页
         </button>
-
       </div>
+        <Suspense  fallback={<PointLoading/>}>
+           <MapChart/>
+        </Suspense>
       <div className={style.content}>
         <Chart renderer='svg' height={600} width={800} data={dv} padding={120} scale={scale} >
           <Legend position='top' offsetY={-23}  />
