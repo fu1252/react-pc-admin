@@ -12,46 +12,9 @@ function SubNav() {
   const isOpenSidebar = useStoreState(state => state.layout.isOpenSidebar);
   const [currentClickNav, setCurrentClickNav] = useState({});
   const baseNavList = [
-    { text: "图表展示", roles: ["user", "admin"], icon: "saleTab", path: "/chart" },
-    { text: "设备管理", roles: ["user", "admin"], icon: "machine", path: "/operator" },
-    { text: "订单管理", roles: ["admin"], icon: "order", path: "/device" },
-    {
-      text: "商品管理",
-      roles: ["user", "admin"],
-      icon: "shop",
-      key: "shop",
-      children: [
-        { text: "管理员页面", roles: ["user", "admin"], icon: "order", path: "/admin" },
-        { text: "哈佛", roles: ["admin"], icon: "account", path: "/bbc" }
-      ]
-    },
-    { text: "富文本编辑器", roles: ["admin"], icon: "account", path: "/editor" },
-    {
-      text: "会员管理",
-      roles: ["user", "admin"],
-      icon: "member",
-      key: "member",
-      children: [
-        { text: "礼物", roles: ["admin"], icon: "order", path: "/gift" },
-        {
-          text: "打折",
-          roles: ["user", "admin"],
-          icon: "account",
-          key: "subAccount",
-          children: [
-            { text: "家里的", roles: ["user", "admin"], icon: "order", path: "/tttt" },
-            {
-              text: "电风扇",
-              roles: ["admin"],
-              icon: "account",
-              path: "/ggg",
-              key: "subsub",
-              children: [{ text: "大幅度", roles: ["admin"], icon: "order", path: "/445" }]
-            }
-          ]
-        }
-      ]
-    }
+    { text: "图表展示", roles: ["user", "admin"], icon: "saleTab", path: "/admin/chart" },
+    { text: "设备管理", roles: ["user", "admin"], icon: "machine", path: "/admin/operator" },
+    { text: "订单管理", roles: ["admin"], icon: "order", path: "/admin/device" },
   ];
 
   // 过滤有权限的路由

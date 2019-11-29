@@ -17,6 +17,14 @@ export function isLogin(){
     return false
   }
 }
+export function isAdminLogin(){
+  const haveValue=getLocalStorage('adminUserData')
+  if(haveValue){
+    return true
+  }else{
+    return false
+  }
+}
 
 export function setLocalStorage(key,value){
   const data=JSON.stringify(value)

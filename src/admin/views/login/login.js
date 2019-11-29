@@ -11,7 +11,7 @@ function LoginWrap() {
   const history = useHistory();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-  const account = getLocalStorage("account");
+  const account = getLocalStorage("adminAccount");
 
   function Form() {
     async function onSubmit(e) {
@@ -38,14 +38,13 @@ function LoginWrap() {
         return;
       }
 
-      const res = await http({ url: "operators/login", data: data, method: "post", headers: { noNeedToken: true } });
-      setLocalStorage("account", data);
+      const res = await http({ url: "employees/login", data: data, method: "post", headers: { noNeedToken: true } });
+      setLocalStorage("adminAccount", data);
       res.login_time = new Date().getTime();
-      setLocalStorage("userData", res);
+      setLocalStorage("adminUserData", res);
       history.replace(from);
     }
     const [showPWD, setShowPWD] = useState(false);
-    const [ischeck, setIscheck] = useState(false);
     // 用户名验证
     const [name, setName] = useState(account ? account.name : "");
     const [nameError, setNameError] = useState({ isError: false, errorType: "noValue" });
@@ -88,22 +87,6 @@ function LoginWrap() {
             />
           </div>
 
-          <div className="bottom-wrapper">
-            <div className="login-checkbox">
-              <input
-                type="checkbox"
-                value={ischeck}
-                onChange={e => setIscheck(e.target.value)}
-                name="isPartner"
-                className="custom-checkbox"
-                id="checkbox"
-              />
-              <label htmlFor="checkbox">我是子账号/合伙人</label>
-            </div>
-            <span className="forgetPWD" onClick={() => history.push("/login/forgetPWD")}>
-              忘记密码
-            </span>
-          </div>
           <button onClick={onSubmit} className="custom-btn login-submit" type="submit">
             登录
           </button>
@@ -123,21 +106,12 @@ function LoginWrap() {
     );
   }
 
-  function ForgetPWD() {
-    return (
-      <div className={style.forgetPWDWrapper}>
-        <h2>aaaaaa</h2>
-      </div>
-    );
-  }
+ 
 
   return (
     <Switch>
-      <Route exact path="/login">
+      <Route exact path="/admin/login">
         <Login />
-      </Route>
-      <Route exact path="/login/forgetPWD">
-        <ForgetPWD />
       </Route>
     </Switch>
   );
