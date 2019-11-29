@@ -8,7 +8,7 @@ const Login = lazy(() => import("@/pages/login/login"));
 
 function App() {
   let location = useLocation();
-
+console.log('app');
   return (
     <>
       <Switch>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Route, Link } from "react-router-dom";
 import style from "./operator.less";
 import CustomTab from "@/component/customTab/customTab.js";
@@ -9,6 +9,7 @@ function Operator() {
     { text: "场地列表", path: "/operator/deviceGroup" },
     { text: "test", path: "/operator/ddd/444" }
   ];
+
   return (
     <div className={style.operatorWrapper}>
       <CustomTab list={tabList}>
