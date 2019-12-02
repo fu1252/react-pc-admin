@@ -1,8 +1,10 @@
-import React from "react";
+import React,{lazy} from "react";
 import { Breadcrumb } from "antd";
 import { Link, useLocation, Route, useRouteMatch } from "react-router-dom";
 import style from "./device.less";
 import CustomTab from "@/component/customTab/customTab.js";
+
+const Channel =lazy(()=>import('./channel.js'))
 
 function Device() {
   const location = useLocation();
@@ -49,10 +51,7 @@ function Device() {
       <div className={style.container}>
         <CustomTab list={tabList}>
           <Route exact path={`${path}/a`}>
-            <h1>aaaa</h1>
-            <Link to="/device/a/a">
-              <button className="custom-btn">去往aaa</button>
-            </Link>
+           <Channel/>
           </Route>
           <Route exact path={`${path}/b`}>
             <h1>bbbb</h1>
