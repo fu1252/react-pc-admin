@@ -124,3 +124,12 @@ function insertMissData(originData){
   }
 
   export default  exportFunc
+
+export function strToNum(str){
+    const mapObj={A:1,B:2,C:3,D:4,E:5,F:6,G:7}
+     return mapObj[str]
+  }
+export function strToRowNum(str){
+    const mapObj={A:1,B:2,C:3,D:4,E:5,F:6,G:7}
+     return `1-${mapObj[str[0]]}-${str[1]}`
+  }
