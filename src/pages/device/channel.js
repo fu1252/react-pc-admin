@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import style from "./device.less";
-import convertData, { strToNum, strToRowNum } from "./dataUtil";
+import convertData, { strToNum, strToRowNum } from "./channelUtil";
 import http from "@/utils/http";
 
 function Channel() {
   const [data, setData] = useState(null);
+console.log('channel');
 
   useEffect(() => {
-    http.get("/devices/MSDtest_free/items/operator").then(value => setData(convertData(value.items)));
+    http.get("/devices/MSDtest_free/items/operator").then(value => {setData(convertData(value.items));});
   }, []);
 
 
@@ -77,7 +78,7 @@ function Channel() {
   if (!data) {
     return null;
   }
-
+ 
   return (
     <div className={style.chanelWrapper}>
       <h1>channel</h1>

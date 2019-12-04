@@ -1,10 +1,13 @@
-import React,{lazy} from "react";
+import React,{lazy,Suspense} from "react";
 import { Breadcrumb } from "antd";
 import { Link, useLocation, Route, useRouteMatch } from "react-router-dom";
+import PointLoading from "@/component/loading/loading";
 import style from "./device.less";
 import CustomTab from "@/component/customTab/customTab.js";
 
 const Channel =lazy(()=>import('./channel.js'))
+const Employee=lazy(()=>import('./employee.js'))
+const TreeCheck=lazy(()=>import('./TreeCheck.js'))
 
 function Device() {
   const location = useLocation();
@@ -50,15 +53,17 @@ function Device() {
       </div>
       <div className={style.container}>
         <CustomTab list={tabList}>
+        <Suspense fallback={<PointLoading />}>
           <Route exact path={`${path}/a`}>
            <Channel/>
           </Route>
           <Route exact path={`${path}/b`}>
-            <h1>bbbb</h1>
+            <Employee/>
           </Route>
           <Route exact path={`${path}/c`}>
-            <h1>cccc</h1>
+            <TreeCheck/>
           </Route>
+        </Suspense>
         </CustomTab>
       </div>
     </div>

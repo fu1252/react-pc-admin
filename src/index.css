@@ -8,12 +8,10 @@ body {
   font-size: 14px;
   background-color: #fff;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 ul,li{
   list-style: none;
 }
@@ -25,8 +23,20 @@ ul{
   box-sizing: border-box;
 }
 
+/* 没权限则不显示元素 */
+.authHide{
+  display: none;
+}
+
+
 
 /* 自定义元素 */
+
+/* svg 初始大小*/
+.custom-svg{
+  width: 18px;
+  height: 18px;
+}
 
 /* 单选框 */
 .custom-radio {
@@ -128,7 +138,7 @@ background-color: #3e97eb;
   }
 } 
 
-/* 切换键 */
+/* 切换选择按钮 */
 .custom-toggle{
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -227,8 +237,4 @@ outline:none;
     background-color: #40a9ff;
 }
 
-/* svg */
-.custom-svg{
-  width: 18px;
-  height: 18px;
-}
+

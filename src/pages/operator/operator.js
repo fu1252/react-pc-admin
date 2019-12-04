@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import { Route, Link } from "react-router-dom";
 import style from "./operator.less";
 import CustomTab from "@/component/customTab/customTab.js";
