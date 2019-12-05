@@ -8,7 +8,6 @@ import examAuth,{saveUserAuth} from '@/permission/authTool'
 function TreeCheck(){
 
  const [checkList, setCheckList] = useState([])
- console.log("TCL: TreeCheck -> checkList", checkList)
 
   function onCheck(checkedKeys){
     setCheckList(checkedKeys)
@@ -33,7 +32,7 @@ function TreeCheck(){
       </ul>
       <Tree
         checkable
-        defaultExpandAll
+        defaultExpandedKeys={['operation']}
         onCheck={onCheck}
         treeData={authTreeData}
         defaultCheckedKeys={defaultCheckList}

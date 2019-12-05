@@ -1,3 +1,7 @@
+
+// 除了all外所有的可设置权限，
+// 新加内容需与authTreeData文件同步
+
 const allPermission = [
   "operation",
   "operation-deviceList",

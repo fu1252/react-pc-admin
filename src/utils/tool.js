@@ -18,3 +18,13 @@ export function formatTime (date) {
 
   return `${t1} ${t2}`
 }
+
+// 深度拷贝，包含拷贝function
+export function DeepClone (obj) {
+  if (obj === null || typeof obj !== 'object') return obj;
+  const cpObj = obj instanceof Array ? [] : {};
+  for (const key in obj) {
+    cpObj[key] = DeepClone(obj[key])
+  };
+  return cpObj;
+}

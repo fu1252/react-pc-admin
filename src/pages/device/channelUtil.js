@@ -25,9 +25,11 @@
 //  C: 'isEmpty',
 //  D: { D1: { coordinate: 'D1' }, D2: 'isEmpty', D3: { coordinate: 'D3' } }}
 
+import {DeepClone} from '@/utils/tool'
+
 // 转换arr为obj，添加C:'isEmpty'
 function convertData(originArrData) {
-  const cloneData = JSON.parse(JSON.stringify(originArrData));
+  const cloneData = DeepClone(originArrData)
   cloneData.sort((a, b) => a.coordinate > b.coordinate);
   const resultObjData = {};
 

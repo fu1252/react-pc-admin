@@ -4,49 +4,53 @@ import classnames from "classnames";
 import ReactSVG from "react-svg";
 import { Icon, Tooltip, Popover } from "antd";
 import { useStoreState } from "easy-peasy";
+import {getUserSubNavAuth} from '@/permission/authTool'
+import {DeepClone} from '@/utils/tool'
 import { useHistory, useLocation } from "react-router-dom";
 
 function SubNav() {
   let history = useHistory();
   const location = useLocation();
+  const navAuth=getUserSubNavAuth()
   const isOpenSidebar = useStoreState(state => state.layout.isOpenSidebar);
   const [currentClickNav, setCurrentClickNav] = useState({});
+
   const baseNavList = [
-    { text: "图表展示", roles: ["user", "admin"], icon: "saleTab", path: "/chart" },
-    { text: "设备管理", roles: ["user", "admin"], icon: "machine", path: "/operator" },
-    { text: "订单管理", roles: ["admin"], icon: "order", path: "/device" },
+    { text: "图表展示", roles:'account', icon: "saleTab", path: "/chart" },
+    { text: "设备管理", roles: 'operation', icon: "machine", path: "/operator" },
+    { text: "订单管理", roles: 'order', icon: "order", path: "/device" },
     {
       text: "商品管理",
-      roles: ["user", "admin"],
+      roles: 'shop',
       icon: "shop",
       key: "shop",
       children: [
-        { text: "管理员页面", roles: ["user", "admin"], icon: "order", path: "/admin" },
-        { text: "哈佛", roles: ["admin"], icon: "account", path: "/bbc" }
+        { text: "管理员页面", roles:'shop', icon: "order", path: "/admin" },
+        { text: "哈佛", roles: 'shop', icon: "account", path: "/bbc" }
       ]
     },
-    { text: "富文本编辑器", roles: ["admin"], icon: "account", path: "/editor" },
+    { text: "富文本编辑器", roles: 'role', icon: "account", path: "/editor" },
     {
       text: "会员管理",
-      roles: ["user", "admin"],
+      roles: 'userMember',
       icon: "member",
       key: "member",
       children: [
-        { text: "礼物", roles: ["admin"], icon: "order", path: "/gift" },
+        { text: "礼物", roles: 'userMember', icon: "order", path: "/gift" },
         {
           text: "打折",
-          roles: ["user", "admin"],
+          roles: 'userMember',
           icon: "account",
           key: "subAccount",
           children: [
-            { text: "家里的", roles: ["user", "admin"], icon: "order", path: "/tttt" },
+            { text: "家里的", roles:'userMember', icon: "order", path: "/tttt" },
             {
               text: "电风扇",
-              roles: ["admin"],
+              roles: 'userMember',
               icon: "account",
               path: "/ggg",
               key: "subsub",
-              children: [{ text: "大幅度", roles: ["admin"], icon: "order", path: "/445" }]
+              children: [{ text: "大幅度", roles:'userMember', icon: "order", path: "/445" }]
             }
           ]
         }
@@ -55,12 +59,12 @@ function SubNav() {
   ];
 
   // 过滤有权限的路由
-  const role = "admin";
-  const cloneData = JSON.parse(JSON.stringify(baseNavList));
+  const cloneData = DeepClone(baseNavList)
   function filterData(data) {
     for (let index = 0; index < data.length; index++) {
       const ele = data[index];
-      if (!ele.roles.includes(role)) {
+      // if (!ele.roles.includes(role)) {
+      if (!navAuth.includes(ele.roles)) {
         data.splice(index, 1);
         index--;
       } else if (ele.children) {

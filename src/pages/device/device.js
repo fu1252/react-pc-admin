@@ -1,13 +1,14 @@
-import React,{lazy,Suspense} from "react";
+import React, { lazy, Suspense } from "react";
 import { Breadcrumb } from "antd";
-import { Link, useLocation, Route, useRouteMatch } from "react-router-dom";
+import { Link, useLocation, Route, Switch, useRouteMatch } from "react-router-dom";
 import PointLoading from "@/component/loading/loading";
 import style from "./device.less";
 import CustomTab from "@/component/customTab/customTab.js";
+import { CSSTransition, TransitionGroup,SwitchTransition } from "react-transition-group";
 
-const Channel =lazy(()=>import('./channel.js'))
-const Employee=lazy(()=>import('./employee.js'))
-const TreeCheck=lazy(()=>import('./TreeCheck.js'))
+const Channel = lazy(() => import("./channel.js"));
+const Employee = lazy(() => import("./employee.js"));
+const TreeCheck = lazy(() => import("./TreeCheck.js"));
 
 function Device() {
   const location = useLocation();
@@ -53,17 +54,25 @@ function Device() {
       </div>
       <div className={style.container}>
         <CustomTab list={tabList}>
-        <Suspense fallback={<PointLoading />}>
-          <Route exact path={`${path}/a`}>
-           <Channel/>
-          </Route>
-          <Route exact path={`${path}/b`}>
-            <Employee/>
-          </Route>
-          <Route exact path={`${path}/c`}>
-            <TreeCheck/>
-          </Route>
-        </Suspense>
+          <Suspense fallback={<PointLoading />}>
+            <TransitionGroup  >
+              <SwitchTransition>
+              <CSSTransition classNames={"fade"}  timeout={300} key={location.pathname}>
+                <Switch>
+                  <Route exact path={`${path}/a`}>
+                    <Channel />
+                  </Route>
+                  <Route exact path={`${path}/b`}>
+                    <Employee />
+                  </Route>
+                  <Route exact path={`${path}/c`}>
+                    <TreeCheck />
+                  </Route>
+                </Switch>
+              </CSSTransition>
+              </SwitchTransition>
+            </TransitionGroup>
+          </Suspense>
         </CustomTab>
       </div>
     </div>

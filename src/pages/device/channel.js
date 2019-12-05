@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
+import {DeepClone} from '@/utils/tool'
 import style from "./device.less";
 import convertData, { strToNum, strToRowNum } from "./channelUtil";
 import http from "@/utils/http";
 
 function Channel() {
   const [data, setData] = useState(null);
-console.log('channel');
 
   useEffect(() => {
     http.get("/devices/MSDtest_free/items/operator").then(value => {setData(convertData(value.items));});
   }, []);
 
+  const cloneObj = DeepClone(data)
 
   function addRowItem(item, e) {
-    const cloneObj = JSON.parse(JSON.stringify(data));
     if (cloneObj[item] === "isEmpty") {
       cloneObj[item] = { [`${item}1`]: "isEmpty" };
       setData(cloneObj);
@@ -27,13 +27,11 @@ console.log('channel');
     }
   }
   function deleteRowItem(item, e) {
-    const cloneObj = JSON.parse(JSON.stringify(data));
     const lastRowStr = Object.keys(cloneObj[item]).sort().pop();
     delete cloneObj[item][lastRowStr];
     setData(cloneObj);
   }
   function addRow() {
-    const cloneObj = JSON.parse(JSON.stringify(data));
     const mapObj = { A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7 };
     const mapArr = ["A", "B", "C", "D", "E", "F", "G"];
     const lastRowStr = Object.keys(cloneObj)
@@ -44,7 +42,6 @@ console.log('channel');
     setData(cloneObj);
   }
   function deleteRow(){
-    const cloneObj = JSON.parse(JSON.stringify(data));
     const lastRow = Object.keys(cloneObj).sort().pop();
     delete cloneObj[lastRow]
     setData(cloneObj)

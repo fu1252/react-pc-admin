@@ -29,6 +29,20 @@ ul{
 }
 
 
+/* CSSTransition转场动画效果 */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+}
+
 
 /* 自定义元素 */
 

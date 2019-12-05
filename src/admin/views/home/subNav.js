@@ -3,6 +3,7 @@ import style from "./home.less";
 import classnames from "classnames";
 import ReactSVG from "react-svg";
 import { Icon, Tooltip, Popover } from "antd";
+import {DeepClone} from '@/utils/tool'
 import { useStoreState } from "easy-peasy";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -19,7 +20,7 @@ function SubNav() {
 
   // 过滤有权限的路由
   const role = "admin";
-  const cloneData = JSON.parse(JSON.stringify(baseNavList));
+  const cloneData = DeepClone(baseNavList)
   function filterData(data) {
     for (let index = 0; index < data.length; index++) {
       const ele = data[index];
