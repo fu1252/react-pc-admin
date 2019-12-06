@@ -61,7 +61,7 @@ export function saveUserAuth(selectedList){
 // 获取用户权限
 export function getUserAuth(){
   const value=getLocalStorage('userAuth')
-  if(!value){console.log('没有用户权限信息');return}
+  if(!value){console.log('没有用户权限信息');return allPermission}
   if(value==='allAuth'){
     return allPermission
   }else{return value}

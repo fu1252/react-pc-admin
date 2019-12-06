@@ -4,7 +4,7 @@ import { Link, useLocation, Route, Switch, useRouteMatch } from "react-router-do
 import PointLoading from "@/component/loading/loading";
 import style from "./device.less";
 import CustomTab from "@/component/customTab/customTab.js";
-import { CSSTransition, TransitionGroup,SwitchTransition } from "react-transition-group";
+import { CSSTransition, TransitionGroup, SwitchTransition } from "react-transition-group";
 
 const Channel = lazy(() => import("./channel.js"));
 const Employee = lazy(() => import("./employee.js"));
@@ -54,25 +54,25 @@ function Device() {
       </div>
       <div className={style.container}>
         <CustomTab list={tabList}>
-          <Suspense fallback={<PointLoading />}>
-            <TransitionGroup  >
-              <SwitchTransition>
-              <CSSTransition classNames={"fade"}  timeout={300} key={location.pathname}>
-                <Switch>
-                  <Route exact path={`${path}/a`}>
-                    <Channel />
-                  </Route>
-                  <Route exact path={`${path}/b`}>
-                    <Employee />
-                  </Route>
-                  <Route exact path={`${path}/c`}>
-                    <TreeCheck />
-                  </Route>
-                </Switch>
-              </CSSTransition>
-              </SwitchTransition>
-            </TransitionGroup>
-          </Suspense>
+          <SwitchTransition>
+            <CSSTransition classNames={"fade"} timeout={300} key={location.pathname}>
+              <div>
+                <Suspense fallback={<PointLoading />}>
+                  <Switch>
+                    <Route exact path={`${path}/a`}>
+                      <Channel />
+                    </Route>
+                    <Route exact path={`${path}/b`}>
+                      <Employee />
+                    </Route>
+                    <Route exact path={`${path}/c`}>
+                      <TreeCheck />
+                    </Route>
+                  </Switch>
+                </Suspense>
+              </div>
+            </CSSTransition>
+          </SwitchTransition>
         </CustomTab>
       </div>
     </div>

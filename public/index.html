@@ -8,6 +8,7 @@
     <meta name="description" content="pc admin react" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>管理系统</title>
+
     <style>
       @keyframes bouncing-loader {
         to {
@@ -39,6 +40,54 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
+      <!-- ie浏览器检测 -->
+      <script>
+        function IEVersion() {
+          var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+          var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+          var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+          var isIE11 = userAgent.indexOf("Trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
+          if (isIE) {
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            if (fIEVersion == 7) {
+              return 7;
+            } else if (fIEVersion == 8) {
+              const isGo = confirm("本网站不支持您的浏览器IE8，请下载或使用其他浏览器, 前往下载360");
+            if (isGo) {
+              window.location.href = "https://browser.360.cn/ee/";
+            }
+              return 8;
+            } else if (fIEVersion == 9) {
+              const isGo = confirm("本网站不支持您的浏览器IE9，请下载或使用其他浏览器, 前往下载360");
+            if (isGo) {
+              window.location.href = "https://browser.360.cn/ee/";
+            }
+              return 9;
+            } else if (fIEVersion == 10) {
+              const isGo = confirm("本网站不支持您的浏览器IE10，请下载或使用其他浏览器, 前往下载360");
+            if (isGo) {
+              window.location.href = "https://browser.360.cn/ee/";
+            }
+              return 10;
+            } else {
+              return 6; //IE版本<=7
+            }
+          } else if (isEdge) {
+            return "edge"; //edge
+          } else if (isIE11) {
+            const isGo = confirm("本网站不支持您的浏览器IE11，请下载或使用其他浏览器, 前往下载360");
+            if (isGo) {
+              window.location.href = "https://browser.360.cn/ee/";
+            }
+            return 11; //IE11
+          } else {
+            return -1; //不是ie浏览器
+          }
+        }
+        IEVersion();
+      </script>
       <div class="bouncing-loader">
         <div></div>
         <div></div>

@@ -3,6 +3,7 @@ import {DeepClone} from '@/utils/tool'
 import style from "./device.less";
 import convertData, { strToNum, strToRowNum } from "./channelUtil";
 import http from "@/utils/http";
+import intl from 'react-intl-universal';
 
 function Channel() {
   const [data, setData] = useState(null);
@@ -79,6 +80,7 @@ function Channel() {
   return (
     <div className={style.chanelWrapper}>
       <h1>channel</h1>
+      <h2>测试intl  {intl.get('HELLO', { name:'lily',where:'tokyo' })}</h2>
       <div className={style.tableWrap}>
         <div className={style.tableHeader}>
           <div className="tableTitle">柜1</div>
