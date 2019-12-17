@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import http from "@/utils/http";
 import { getLocalStorage, getSessionStorage, setSessionStorage } from "@/utils/storage";
 import Route from "./route";
-import TopHeader from "./topHeader";
+import TopHeader from "./topHeader/topHeader";
 import { useStoreActions } from "easy-peasy";
-import SubNav from "./subNav";
+import SubNav from "./subNav/subNav";
 import style from "./home.less";
 
 function Home() {

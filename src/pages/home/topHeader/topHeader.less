@@ -1,0 +1,55 @@
+@import '~@/style/base.less';
+
+
+// 头部信息栏
+.mainHeader {
+  background-color: #fff;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  :global {
+    .trigger {
+      font-size: 18px;
+      line-height: 64px;
+      padding: 0 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .trigger:hover {
+      color: #108ee9;
+    }
+    .right{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 30px;
+      li{
+        border-right: 1px solid @gray-border;
+        padding: 0 30px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        i{
+          font-size: 20px;
+          margin-right: 10px;
+        }
+        &:last-child{
+          border-right: none;
+        }
+      }
+      
+    }
+  }
+}
+
+:global{
+  .overEle{
+    .ant-dropdown-menu-item{
+      padding:10px 12px;
+    }
+    svg{
+      margin-right: 8px;
+    }
+  }
+}

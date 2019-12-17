@@ -8,10 +8,11 @@ const Login = lazy(() => import("./views/login/login"));
 
 function Admin() {
   let location = useLocation();
-console.log('app');
+
   return (
     <>
       <Switch>
+  
         <Route path="/admin/login">
           <Suspense fallback={<PointLoading />}>
             <Login />
@@ -28,6 +29,7 @@ console.log('app');
             }}
           />
         )}
+  
       </Switch>
     </>
   );

@@ -1,79 +1,17 @@
 import React, { useState } from "react";
-import style from "./home.less";
+import style from "./subNav.less";
 import classnames from "classnames";
 import ReactSVG from "react-svg";
 import { Icon, Tooltip, Popover } from "antd";
 import { useStoreState } from "easy-peasy";
-import {getUserSubNavAuth} from '@/permission/authTool'
-import {DeepClone} from '@/utils/tool'
 import { useHistory, useLocation } from "react-router-dom";
+import navList from './navData'
 
 function SubNav() {
   let history = useHistory();
   const location = useLocation();
-  const navAuth=getUserSubNavAuth()
   const isOpenSidebar = useStoreState(state => state.layout.isOpenSidebar);
   const [currentClickNav, setCurrentClickNav] = useState({});
-
-  const baseNavList = [
-    { text: "图表展示", roles:'account', icon: "saleTab", path: "/chart" },
-    { text: "设备管理", roles: 'operation', icon: "machine", path: "/operator" },
-    { text: "订单管理", roles: 'order', icon: "order", path: "/device" },
-    {
-      text: "商品管理",
-      roles: 'shop',
-      icon: "shop",
-      key: "shop",
-      children: [
-        { text: "管理员页面", roles:'shop', icon: "order", path: "/admin" },
-        { text: "哈佛", roles: 'shop', icon: "account", path: "/bbc" }
-      ]
-    },
-    { text: "富文本编辑器", roles: 'role', icon: "account", path: "/editor" },
-    {
-      text: "会员管理",
-      roles: 'userMember',
-      icon: "member",
-      key: "member",
-      children: [
-        { text: "礼物", roles: 'userMember', icon: "order", path: "/gift" },
-        {
-          text: "打折",
-          roles: 'userMember',
-          icon: "account",
-          key: "subAccount",
-          children: [
-            { text: "家里的", roles:'userMember', icon: "order", path: "/tttt" },
-            {
-              text: "电风扇",
-              roles: 'userMember',
-              icon: "account",
-              path: "/ggg",
-              key: "subsub",
-              children: [{ text: "大幅度", roles:'userMember', icon: "order", path: "/445" }]
-            }
-          ]
-        }
-      ]
-    }
-  ];
-
-  // 过滤有权限的路由
-  const cloneData = DeepClone(baseNavList)
-  function filterData(data) {
-    for (let index = 0; index < data.length; index++) {
-      const ele = data[index];
-      // if (!ele.roles.includes(role)) {
-      if (!navAuth.includes(ele.roles)) {
-        data.splice(index, 1);
-        index--;
-      } else if (ele.children) {
-        filterData(ele.children);
-      }
-    }
-  }
-  filterData(cloneData);
-  const navList = cloneData;
 
   // 菜单项点击后
   function onListClick(item) {
@@ -160,13 +98,16 @@ function SubNav() {
 
   return (
     <div className={classnames({ [style.sidebarList]: true, [style.closeSidebar]: !isOpenSidebar })}>
+      
       {/* 头部logo */}
       <div className="header-logo" onClick={() => history.push("/home")}>
         <Icon type="github" />
         {isOpenSidebar && <span className="text">管理系统</span>}
       </div>
+
       {/* menu项 */}
       <ul className="listWrap">{listEle(navList)}</ul>
+
     </div>
   );
 }

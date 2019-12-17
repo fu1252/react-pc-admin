@@ -1,6 +1,7 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import style from "./operator.less";
+import intl from 'react-intl-universal';
 import CustomTab from "@/component/customTab/customTab.js";
 
 function Operator() {
@@ -12,12 +13,14 @@ function Operator() {
 
   return (
     <div className={style.operatorWrapper}>
+
       <CustomTab list={tabList}>
+
         <Route exact path={"/operator/device"}>
+          <div>
           <h1>device</h1>
-          <Link to="/device">
-            <button className="custom-btn">去往device</button>
-          </Link>
+          <h2>测试intl  {intl.get('HELLO', { name:'lily',where:'tokyo' })}</h2>
+          </div>
         </Route>
         <Route exact path={"/operator/deviceGroup"}>
           <h1>deviceGroup</h1>
@@ -25,7 +28,9 @@ function Operator() {
         <Route path={"/operator/ddd"}>
           <h1>999999</h1>
         </Route>
+
       </CustomTab>
+
     </div>
   );
 }

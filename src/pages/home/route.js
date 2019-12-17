@@ -10,6 +10,7 @@ const Editor = lazy(() => import("@/pages/editor/editor"));
 
 function RouteConfig() {
   
+  // 未匹配路由页面
   function NotFound() {
     return <h1>来到没有页面的沙漠地带</h1>;
   }
@@ -17,6 +18,7 @@ function RouteConfig() {
   return (
     <Suspense fallback={<PointLoading />}>
       <Switch>
+
         <Redirect exact from="/" to="/home" />
         <Redirect exact from="/home" to="/operator" />
         <Redirect exact from="/operator" to="/operator/device" />
@@ -40,6 +42,7 @@ function RouteConfig() {
         <Route>
           <NotFound />
         </Route>
+        
       </Switch>
     </Suspense>
   );

@@ -3,7 +3,6 @@ import {Tree} from 'antd'
 import classnames from 'classnames'
 import authTreeData from '@/permission/authTreeData'
 import examAuth,{saveUserAuth} from '@/permission/authTool'
-// import style from './device.less' 
 
 function TreeCheck(){
 
@@ -14,9 +13,7 @@ function TreeCheck(){
     saveUserAuth(checkedKeys)
   };
   
-
   const defaultCheckList=[]
-  
   
   return(
     <div>

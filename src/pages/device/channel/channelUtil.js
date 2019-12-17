@@ -120,13 +120,13 @@ function insertMissObj(originData) {
   return resultData;
 }
 
-function exportFunc(propData) {
+export function transferData(propData) {
   const firstConvertData = convertData(propData);
   const finalData = insertMissObj(firstConvertData);
   return finalData;
 }
 
-export default exportFunc;
+
 
 
 export function strToNum(str) {
